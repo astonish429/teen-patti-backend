@@ -1,17 +1,18 @@
 import httpStatusCodes from 'http-status-codes';
 
-import userService from '../services/user.service';
+import { baseDetail, baseCreate } from '../services/base.service';
 import IController from '../types/IController';
 import apiResponse from '../utilities/apiResponse';
 import { generateCookie } from '../utilities/encryptionUtils';
 import constants from '../constants';
 import locale from '../constants/locale';
+import { User } from '../entities/user/user.entity';
 
 const login: IController = async (req, res) => {
-  const user = await userService.loginUser(
-    req.body.email,
-    req.body.password,
-  );
+  const user = await baseDetail(User, {
+    email: req.body.email,
+    password: req.body.password,
+});
   if (user) {
     const cookie = await generateUserCookie(user.id);
     apiResponse.result(res, user, httpStatusCodes.OK, cookie);
@@ -27,11 +28,11 @@ const login: IController = async (req, res) => {
 const register: IController = async (req, res) => {
   let user;
   try {
-    user = await userService.createUser(
-      req.body.email,
-      req.body.password,
-      req.body.name,
-    );
+    user = await baseCreate(User,{
+      email: req.body.email,
+      password: req.body.password,
+      name: req.body.name,
+  });
   } catch (e) {
     if (e.code === constants.ErrorCodes.DUPLICATE_ENTRY) {
       apiResponse.error(

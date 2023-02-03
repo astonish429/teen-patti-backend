@@ -36,13 +36,13 @@ export default async (
       const decoded = await verifyCookie(authorizationHeader);
       if (decoded) {
         const user = await userService.getUserById(
-          decoded.data[Constants.Cookie.KEY_USER_ID],
+          // decoded.data[Constants.Cookie.KEY_USER_ID],
         );
         if (user) {
           // @ts-ignore
           req.user = user;
-          req.dashboard =
-            req.headers['context'] === 'dashboard' && user.isStaff;
+          // req.dashboard =
+          //   req.headers['context'] === 'dashboard' && user?.isStaff;
         } else {
           apiResponse.error(res, httpStatusCodes.UNAUTHORIZED);
           return;

@@ -1,4 +1,3 @@
-import * as bodyParser from 'body-parser';
 import express from 'express';
 const morgan = require('morgan');
 
@@ -10,8 +9,7 @@ import * as errorHandler from '../middlewares/apiErrorHandler';
 
 const app = express();
 
-require('dotenv').config();
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use(morgan('dev'));
 

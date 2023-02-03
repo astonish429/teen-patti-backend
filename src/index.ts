@@ -1,11 +1,13 @@
-import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+import { config } from './config/default';
 
-import logger from './config/logger';
-import app from './config/express';
-const PORT = process.env.PORT || 5000;
+global.config = { ...config };
 
-createConnection()
+import { AppDataSource } from './data-source';
+import logger from './bootstrap/logger';
+import app from './bootstrap/express';
+const PORT = config.port;
+
+AppDataSource.initialize()
   .then(() => {
     logger.info('database connection created');
     app.listen(PORT, () => {
@@ -13,5 +15,5 @@ createConnection()
     });
   })
   .catch((error: Error) => {
-    logger.info(`Database connection failed with error ${error}`);
+    logger.error(`Database connection failed with error ${error}`);
   });

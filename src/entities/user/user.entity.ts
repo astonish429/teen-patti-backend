@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique, BaseEntity } from 'typeorm';
 import { DateTimeEntity } from '../base/dateTimeEntity';
 
-@Entity('user_auth', { orderBy: {  id: 'ASC' } })
+@Entity()
 export class User extends DateTimeEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
@@ -24,4 +24,7 @@ export class User extends DateTimeEntity {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({default: 0})
+  totalCoins: number;
 }

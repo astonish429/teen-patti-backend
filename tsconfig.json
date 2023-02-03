@@ -2,12 +2,12 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es3",
+    "target": "es6",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": false,
     "outDir": "dist",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "rootDir": "src",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -17,6 +17,7 @@
         "src/types/*"
       ]
     },
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "lib": [
       "es2015", "es5", "es6", "dom"
     ]
